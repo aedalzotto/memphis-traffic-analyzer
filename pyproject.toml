@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "memphis-traffic-analyzer"
+version = "0.0.1"
+dependencies = [
+    'pandas',
+    'matplotlib',
+    'importlib-metadata; python_version>="3.8"',
+]
+
+[project.scripts]
+memphis-ta = "memphis_traffic_analyzer:memphis_ta"
