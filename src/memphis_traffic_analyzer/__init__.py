@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from graph import Graph
+from .graph import Graph
 
 def memphis_ta():
     parser = ArgumentParser(description="Memphis Traffic Analyzer")

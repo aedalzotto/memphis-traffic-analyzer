@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from math import floor, ceil
-from dmni import DMNI
-from edges import Edges
+from .dmni import DMNI
+from .edges import Edges
 
 class Graph:
     def __init__(
