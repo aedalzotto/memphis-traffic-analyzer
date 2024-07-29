@@ -59,7 +59,7 @@ class Graph:
                         self.axes[idx][i].plot(edges[edge]['timestamp'], edges[edge]['total_time'], "o--")
                     else:
                         self.axes[idx].plot(edges[edge][0], edges[edge]['total_time'], "o--")
-            
+
     def show(self):
         for fig in self.figs:
             fig.show()
