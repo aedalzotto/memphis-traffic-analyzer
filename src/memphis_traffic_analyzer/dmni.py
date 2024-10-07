@@ -8,7 +8,7 @@ class DMNI:
 
         self._df = pd.concat(map(pd.read_csv, dmni_logs), ignore_index=True)
 
-        self._df['timestamp']  = self._df['timestamp']  / 100000.0
+        self._df['timestamp']  = self._df['timestamp']
 
         self._df['cons'] = self._df['cons'].apply(str).apply(int, base=16)
         self._df['app']  = self._df['cons'].apply(lambda x: x >> 8)
@@ -19,8 +19,8 @@ class DMNI:
         self._df['cons'] = self._df['cons'] & 0xFF
         self._df['prod'] = self._df['prod'] & 0xFF
 
-        self._df['total_time'] = self._df['total_time'] / 100.0
-        self._df['noc_time']   = self._df['noc_time']   / 100.0
+        self._df['total_time'] = self._df['total_time']
+        self._df['noc_time']   = self._df['noc_time']
         self._df['dmni_time']  = self._df['total_time'] - self._df['noc_time']
         
         self._df.sort_values(by='timestamp', inplace = True)
