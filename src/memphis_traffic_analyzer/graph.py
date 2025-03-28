@@ -20,7 +20,7 @@ class Graph:
         for id in ids:
             traffic = dmni[id]
             if start_ms is not None:
-                traffic.drop(traffic[traffic['timestamp']/100000.0 < start_ms].index, inplace=True)
+                traffic = traffic.drop(traffic[traffic['timestamp']/100000.0 < start_ms].index)
 
             edges = Edges(traffic)
             fig, ax = plt.subplots(len(edges))
@@ -57,7 +57,7 @@ class Graph:
             for idx, comp_id in enumerate(comp_ids):
                 traffic = dmni_comp[comp_id]
                 if start_ms is not None:
-                    traffic.drop(traffic[traffic['timestamp']/100000.0 < start_ms].index, inplace=True)
+                    traffic = traffic.drop(traffic[traffic['timestamp']/100000.0 < start_ms].index)
                 edges = Edges(traffic)
 
                 for i, edge in enumerate(edges):
