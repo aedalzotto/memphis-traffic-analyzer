@@ -20,16 +20,16 @@ class Graph:
         for id in ids:
             traffic = dmni[id]
             if start_ms is not None:
-                traffic = traffic.drop(traffic[traffic['timestamp']/100000.0 < start_ms].index)
+                traffic = traffic.drop(traffic[traffic['snd_time']/100000.0 < start_ms].index)
 
             edges = Edges(traffic)
             fig, ax = plt.subplots(len(edges))
             
             min_x = floor(
-                min([edges[edge]['timestamp'].min()/100000.0 for edge in edges])
+                min([edges[edge]['snd_time'].min()/100000.0 for edge in edges])
             )
             max_x = ceil(
-                max([edges[edge]['timestamp'].max()/100000.0 for edge in edges])
+                max([edges[edge]['snd_time'].max()/100000.0 for edge in edges])
             )
 
             for i, edge in enumerate(edges):
@@ -38,7 +38,7 @@ class Graph:
                 else:
                     ax_ref = ax
 
-                ax_ref.plot(edges[edge]['timestamp']/100000.0, edges[edge]['total_time']/100.0, "o--", label="e{},{}".format(edge[0], edge[1]))
+                ax_ref.plot(edges[edge]['snd_time']/100000.0, edges[edge]['latency']/100.0, "o--", label="e{},{}".format(edge[0], edge[1]))
                 # ax_ref.set_xlabel("Time (ms)")
                 ax_ref.set_ylabel("Latency (µs)")
                 ax_ref.legend(loc="lower right")
@@ -46,7 +46,7 @@ class Graph:
 
                 if export:
                     print("Edge {}".format(edge))
-                    [print("({}, {})".format(row['timestamp']/100000.0, row['total_time']/100.0)) for index, row in edges[edge].iterrows()]
+                    [print("({}, {})".format(row['snd_time']/100000.0, row['latency']/100.0)) for index, row in edges[edge].iterrows()]
                     print("")
 
             self.figs.append(fig)
@@ -57,14 +57,14 @@ class Graph:
             for idx, comp_id in enumerate(comp_ids):
                 traffic = dmni_comp[comp_id]
                 if start_ms is not None:
-                    traffic = traffic.drop(traffic[traffic['timestamp']/100000.0 < start_ms].index)
+                    traffic = traffic.drop(traffic[traffic['snd_time']/100000.0 < start_ms].index)
                 edges = Edges(traffic)
 
                 for i, edge in enumerate(edges):
                     if len(edges) > 1:
-                        self.axes[idx][i].plot(edges[edge]['timestamp']/100000.0, edges[edge]['total_time']/100.0, "o--")
+                        self.axes[idx][i].plot(edges[edge]['snd_time']/100000.0, edges[edge]['snd_time']/100.0, "o--")
                     else:
-                        self.axes[idx].plot(edges[edge][0]/100000.0, edges[edge]['total_time']/100.0, "o--")
+                        self.axes[idx].plot(edges[edge][0]/100000.0, edges[edge]['snd_time']/100.0, "o--")
 
     def show(self):
         for fig in self.figs:
