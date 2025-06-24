@@ -14,7 +14,7 @@ class DMNI:
 
         self._df['cons'] = self._df['cons'].apply(str).apply(int, base=16)
         self._df['app']  = self._df['cons'].apply(lambda x: x >> 8)
-        self._df.drop(self._df[self._df['app'] > 0xFF].index,     inplace=True)
+        self._df.drop(self._df[self._df['app'] >= 0xFF].index,     inplace=True)
         self._df.drop(self._df[self._df['app'] == 0].index,       inplace=True)
 
         self._df['prod'] = self._df['prod'].apply(str).apply(int, base=16)
